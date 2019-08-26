@@ -1,0 +1,1 @@
+var data = Mock.mock({"data|10":[{"video":"blob:http:\/\/www.imooc.com\/5aa3c7ce-253e-4d01-977c-16b77b83184c","id":"@ID","thumb":"@IMG(1200X600,@color())"}],"success":true});data.data.forEach(function(item){$('example').append('<h3>' + item._id + '</h3><img src="' + item.thumb + '"/>')})

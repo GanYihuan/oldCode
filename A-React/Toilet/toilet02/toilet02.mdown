@@ -1,0 +1,143 @@
+>## service start
+进入service目录
+npm start
+
+
+
+>## 获取数据
+read.js----------------------------------------
+componentDidMount() {
+    var that = this;
+    Util.get('http://192.168.11.102:3000/data/read?type=config', function(data) {
+      // status: 查看json数据可知
+      if(data.status === 1) {
+        // 1.const定义的变量不可以修改，而且必须初始化。
+        // 2.var定义的变量可以修改，如果不初始化会输出undefined，不会报错。
+        // 3.let是块级作用域，函数内部使用let定义后，对函数外部无影响。
+        let obj = data.data;  // 总数据
+        let hotTopic = obj.hotTopic;
+        let recommendTopic = obj.recommendTopic;
+        let other = obj.other;
+        let category = obj.category;
+        // 改变状态
+        that.setState({
+          isShow: true,
+          recommendTopic: recommendTopic,
+          hotTopic: hotTopic,
+          category: category,
+          other: other
+        });
+      } else {
+        console.log('no data!');
+      }
+    }, function(err) {
+      console.log(err);
+    });
+  }
+
+
+
+>## 路由
+#read.js----------------------------------------
+1) 路由处理组件
+<NavigatorIOS
+    style={{flex: 1}}
+    initialRoute={{
+      component: ReadView,  // 子组件
+      title: 'read section!', // 返回按钮的文字
+      navigationBarHidden: true // 导航栏是否隐藏。
+    }}
+  />
+2) 传入路由
+<Category
+  data={this.state.category}
+  // 路由
+  navigator={this.props.navigator}
+/>
+category---------------------------------------
+3) 绑定this, data[i].text传入数据
+<TouchableOpacity onPress={this._goToList.bind(this, data[i].text)}></TouchableOpacity>
+4) 跳回的路由
+_goToList(name) {
+    let type = this._getType(name);
+    let url = 'http://192.168.11.102:3000/data/read?type=' + type;
+    // 跳回的路由
+    this.props.navigator.push({
+      // 目标组件
+      component: List,
+      // 标题颜色
+      barTintColor: '#fff',
+      title: name,
+      // 传入数据
+      passProps: {
+        url: url
+      }
+    })
+  }
+
+
+
+>## 
+read.js----------------------------------------
+{/*kill01: 传数据*/}
+<Topic data={this.state.recommendTopic}/>
+---------------------
+topic.js
+constructor(props) {
+    super(props);
+    this.state = {
+        // kill02: 接受数据
+        data: props.data
+    }
+}
+// kill03: 使用数据
+var data = this.state.data;
+var views = [];
+// 拿数据
+for (var i in data) {
+  views.push(
+      <View
+          key={i} // 标识
+          style={styles.img_item}
+      >
+        <Image
+            style={styles.img}
+            source={{uri: data[i].img}}  // kill03: 使用数据
+            resizeMode="cover"
+        />
+      </View>
+  )
+}
+
+
+
+>##
+ListView
+1）
+let ds = new ListView.DataSource({
+  rowHasChanged: (r1, r2) => r1 !== r2
+});
+this.state = {
+  // 标题名字: 测试数据11
+  dataSource: ds.cloneWithRows([])
+}
+2）
+<ListView
+  // 加入标示
+  dataSource={this.state.dataSource}
+  renderRow={(rowData) => (
+  )}
+/>
+3)
+Util.get(url, function (data) {
+    // check http://192.168.11.102:3000/data/read?type=config
+    // you will find the status
+    if (data.status === 1) {
+      let obj = data.data;
+      that.setState({
+        dataSource: ds.cloneWithRows(obj)
+      });
+    } else {
+    }
+  }, function (err) {
+  });

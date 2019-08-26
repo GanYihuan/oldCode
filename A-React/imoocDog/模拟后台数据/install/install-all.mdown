@@ -1,0 +1,1 @@
+npm install koa koa-logger koa-session koa-router mongoose sha1 koa-bodyparser  lodash uuid xss bluebird speakeasy --save

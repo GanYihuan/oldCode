@@ -1,0 +1,23 @@
+# IOS
+brew update && doctor
+xcode-select --install
+brew install watchman
+brew install flow
+npm install react-native-cli -g
+react-native init projectName
+
+
+
+# Android
+Java SDK
+brew install android-sdk(bug)
+vi ~/.bash_profile
+'''
+export ANDROID_HOME=/user/local/opt/android-sdk
+'''
+brew info android(bug)
+android avd(bug)
+emulator @ninghao(bug)
+
+
+

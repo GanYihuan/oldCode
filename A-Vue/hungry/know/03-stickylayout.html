@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    .detail-main {
+        margin-top: 64px;
+        /*关键padding 给关闭按钮的空间*/
+        padding-bottom: 64px;
+    }
+    
+    .detail-close {
+        position: relative;
+        width: 32px;
+        height: 32px;
+        /*关键 margin嵌入了main里的padding*/
+        margin: -64px auto 0 auto;
+        /*关键*/
+        clear: both;
+        font-size: 32px;
+    }
+    </style>
+</head>
+
+<body>
+    <div v-show="detailShow" class="detail">
+        <!-- 关键 清浮动 -->
+        <div class="detail-wrapper clearfix">
+            <div class="detail-main">
+            </div>
+        </div>
+        <!-- 关键 关闭按钮平级 -->
+        <div class="detail-close" @click="hideDetail">
+            <i class="icon-close"></i>
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>

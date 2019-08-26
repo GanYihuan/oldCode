@@ -1,0 +1,164 @@
+# Navigator
+```
+<Navigator
+    tintColor="#f0f"
+    style={{fontSize: 15}}
+    initialRoute={{
+      name: '启动页',
+      component: LaunchImage
+      //title:'网易',
+      //leftButtonIcon:require('image!navigationbar_friendattention'),
+      //leftButtonIcon:require('../image/NavigationBar/navigationbar_friendattention.png'),
+      //rightButtonIcon:require('image!navigationbar_pop')
+      //rightButtonIcon:require('../image/NavigationBar/navigationbar_pop.png')
+    }}
+    configureScene={()=>{
+      return Navigator.SceneConfigs.PushFromRight;  // animated
+    }}
+    renderScene={(route,navigator)=>{
+       let Component = route.component;
+       return <Component {...route.passProps} navigator={navigator}/>;
+    }}
+/>
+```
+
+
+
+
+#
+```
+  // 复杂的操作:定时器\网络请求
+  componentDidMount(){
+    // 定时: 隔2s切换到Main
+    setTimeout(()=> {
+      // 页面的切换
+      this.props.navigator.replace({
+        // 具体路由的版块
+        component: Main
+      });
+    }, 2000);
+  }
+```
+
+
+
+
+# npm install
+import TabNavigator from 'react-native-tab-navigator';
+```
+ <TabNavigator.Item
+    title={title}  // transform variable add the {}
+    renderIcon={() => <Image style={styles.iconStyle} source={{uri: iconName}}/>} // icon
+    renderSelectedIcon={() => <Image style={styles.iconStyle} source={{uri: selectedIconName}}/>}   // selectedIcon
+    onPress={()=>{this.setState({selectedTab:selectedTab})}}  // click and then change 'selectedTab' value
+    selected={this.state.selectedTab === selectedTab} // selected tab
+    selectedTitleStyle={styles.selectedTitleStyle} // selected tab style
+    badgeText={badgeText} // badge
+>
+</TabNavigator.Item>
+```
+
+
+
+
+#
+this.props.navigator.pop();
+
+
+# Switch
+```
+<Switch
+      style={{marginRight:8}}
+      value={this.state.isOn == true}
+      onValueChange={()=>{
+        this.setState({isOn: !this.state.isOn})}
+      }
+  />
+```
+
+
+
+
+#import Platform
+```
+width: Platform.OS == 'ios' ? 28 : 24,
+```
+
+
+
+# 吸顶效果
+```
+<ScrollView>
+  <View style={styles.container}>
+    <View style={styles.topViewStyle}></View>
+  </View>
+</ScrollView>
+```
+```
+// (1)
+container: {
+    height: Platform.OS == 'ios' ? 400 : 200,
+},
+// (2)
+topViewStyle: {
+    marginTop: Platform.OS == 'ios' ? 280 : 80,
+}
+```
+```
+// (3)
+<ScrollView
+    contentInset={{top: -200}}  // 滚动往上走了200
+    contentOffset={{y: 200}}  // 初始滚动坐标
+></ScrollView>
+```
+
+
+
+
+#children
+static defaultProps = {
+  // 下级界面URL路径
+  tplurl: '',
+  // give father a func (2)
+  callBackClickCell: null
+};
+onPress={() => this.clickCell(this.props.tplurl)}
+clickCell(data) {
+    if (this.props.callBackClickCell == null) {
+      return
+    }
+    // give father func carry data (1)
+    this.props.callBackClickCell(data);
+}
+#father
+<CommonView
+      // give father a func (3)
+      callBackClickCell={(data) => this.popToTopView(data)}
+  />
+
+
+>##
+clickItem(url) {
+    // (ShopCenterItem) give father a function (1)
+    this.props.popToShopCenter(url);
+  }
+static defaultProps = {
+    // (ShopCenterItem) give father a function (2)
+    popToShopCenter: null
+  };
+<ShopCenterItem
+  // (ShopCenterItem) give father a function (3)
+  popToShopCenter={(url) => this.popToHome(url)}
+/>
+
+
+
+>##
+this.props.navigator.push(
+    {
+      component: HomeDetail, // 要跳转的版块
+      title: '详情页'
+    }
+);
+
+

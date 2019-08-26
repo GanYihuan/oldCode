@@ -1,0 +1,23 @@
+[
+  {
+    "path": "a",
+    "name": "ALL",
+    "short_name": "ALL",
+    "checked": true
+  },
+  {
+    "path": "IOS",
+    "name": "IOS",
+    "checked": true
+  },
+  {
+    "path": "react-native",
+    "name": "react-native",
+    "checked": true
+  },
+  {
+    "path": "MySQL",
+    "name": "MySQL",
+    "checked": true
+  }
+]

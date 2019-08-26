@@ -1,0 +1,137 @@
+>##
+#dom finish
+mount(){}
+
+
+
+>##
+#watch data change ?
+watch(){}
+
+
+
+>##
+#horizontal scroll
+.pic-wrapper {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.pic-list {
+  font-size: 0;
+}
+.pic-item {
+  display: inline-block;
+  width: 120px;
+  height: 90px;
+  margin-right: 6px;
+}
+-------
+_initPics() {
+    if (this.seller.pics) {
+      let picWidth = 120;
+      let margin = 6;
+      let width = (picWidth + margin) * this.seller.pics.length - margin;
+      this.$refs.picList.style.width = width + 'px';
+      this.$nextTick(() => {
+        if (!this.picScroll) {
+          this.picScroll = new BScroll(this.$refs.picWrapper, {
+            scrollX: true,  // horizontal scroll
+            eventPassthrough: 'vertical'  // ignore vertical scroll
+          });
+        } else {
+          this.picScroll.refresh();
+        }
+      });
+    }
+}
+
+
+
+>##
+# I don't konw
+data() {
+  return {
+    favorite: (() => {
+      return loadFromLocal(this.seller.id, 'favorite', false);
+    })()
+  }
+}
+
+
+
+>##
+# App.vue
+created() {
+  // GET /someUrl
+  this.$http.get('/api/seller?id=' + this.seller.id).then((response) => {
+    // get body data
+    response = response.body;
+    if (response.errno === ERO_OK) {
+      // object extention attribute
+      this.seller = Object.assign({}, this.seller, response.data);  // {result, source, data}
+    }
+  });
+},
+
+
+
+>##
+# I don't known
+data() {
+      return {
+        favorite: (() => {
+          return loadFromLocal(this.seller.id, 'favorite', false);
+        })()
+      }
+    },
+
+
+
+>##
+#
+prod.server.js
+
+
+
+>##
+# package
+npm run build
+# run
+node prod.server.js
+
+
+
+>##
+#资料
+Vue.js
+https://vuejs.org.cn/
+Vue-cli
+https://github.com/vuejs/vue-cli
+Vue-resource
+https://github.com/vuejs/vue-resource
+Vue-router
+https://github.com/vuejs/vue-router
+better-scroll
+https://github.com/usthuangyi/better-scroll
+webpack
+http://webpack.github.io
+Stylus
+http://www.zhangxinxu.com/jq/styles/
+es6
+http://es6.ruanyifeng.com/
+eslint
+http://eslint.org/docs/rules/
+设备像素比
+http://www.zhangxinxu.com/wordpress/2012/08/window-devicepixelratio/
+Flex
+http://www.ranyifeng.com/blog/2015/07/flex-grammar.html?utm_source=tuicool
+贝塞尔曲线测试
+http://cubic-bezier.com/
+
+
+
+
+
+
+

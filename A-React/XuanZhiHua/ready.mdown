@@ -1,0 +1,20 @@
+1:check version
+iterm:
+react-native -version
+
+
+2:update rn version
+npm update -g react-native-cli
+
+
+3:check rn version
+npm info react-native
+
+
+4:transform version
+npm install --save react-native@0.18
+
+
+5:
+
+

@@ -1,0 +1,7 @@
+>##
+#不同屏幕
+// iphone5
+@media only screen and (max-width: 320px) {
+    flex: 0 0 120px;
+    width: 120px;
+}

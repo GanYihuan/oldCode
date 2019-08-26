@@ -1,0 +1,25 @@
+
+1:判断ratings里的某个数据是否为指定的值
+positives() {   return this.ratings.filter((rating) => {     return rating.rateType === POSITIVE;   }); },
+
+
+2:父级与子级交互 
+子级发送数据
+this.$emit('increment', 'selectType', type);
+
+父级接受子级数据 
+<ratingselect @increment="incrementTotal"               :select-type="selectType"               :only-content="onlyContent"               :desc="desc"               :ratings="food.ratings">
+
+父级更新
+incrementTotal(type, data) {   this[type] = data;   this.$nextTick(() => {     this.scroll.refresh();   }); },
+
+
+3:在根元素上添加滚动组件
+this.scroll = new BScroll(this.$el, {   click: true });
+
+
+4:引入js
+import {formatDate} from '../../common/js/date';
+
+
+

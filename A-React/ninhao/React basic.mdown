@@ -1,0 +1,20 @@
+>##安装 jspm
+1. npm install -g jspm
+2. jspm init(ALL enter)
+3. jspm install semantic-ui
+4. jspm install css
+5. jspm install jsx=npm:jspm-loader-jsx
+6. jspm install react react-dom
+7. npm install browser-sync
+8. browser-sync start --server --no-notify --files "app/*.js"
+
+
+
+>## 06
+npm install react-router --save
+
+
+
+
+
+
